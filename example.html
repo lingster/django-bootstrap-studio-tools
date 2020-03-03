@@ -1,0 +1,11 @@
+<div class="item" dj-for="i in items">
+  <h2 dj-ref="i.name">This is the heading</h2>
+  <div dj-ref="i.content|markdown">Lorem ipsum dolor sit amet …</div>
+</div>
+
+<div dj-if="form.errors" >
+    <ul class="errorlist">
+    </ul>
+</div>
+
+

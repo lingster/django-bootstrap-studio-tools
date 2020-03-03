@@ -1,0 +1,20 @@
+<html>
+ <body>
+  {% for i in items %}
+  <div class="item">
+   <h2>
+    {{ i.name }}
+   </h2>
+   <div>
+    {{ i.content|markdown }}
+   </div>
+  </div>
+  {% endfor %}
+  {% if form.errors %}
+  <div>
+   <ul class="errorlist">
+   </ul>
+  </div>
+  {% endif %}
+ </body>
+</html>
