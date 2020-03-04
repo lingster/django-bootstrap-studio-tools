@@ -8,6 +8,13 @@ infile = sys.argv[-1]
 with open(infile, "r") as fp:
     soup = BeautifulSoup(fp, "lxml")
 
+# handle load
+for div in soup.find_all(attrs={"dj-load": True}):
+    if div:
+        forline = "{% load " + div.get('dj-load') + " %}"
+        div.insert_before(forline)
+        del div
+
 # handle for
 for div in soup.find_all(attrs={"dj-for": True}):
     if div:
@@ -47,6 +54,20 @@ for div in soup.find_all(attrs={"dj-block": True}):
         if 'dj-block' in div.attrs:
             del div.attrs['dj-block']
             div.insert_after('{% endblock %}')
+ 
+# handle scripts,
+# eg: <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js">
+# eg <script src="{% static "assets/js/theme.js" %}">
+for div in soup.find_all("script"):
+    if div:
+        if not div.get("src").startswith("http"):
+            div.attrs["src"] = "{% static \"" + div.attrs["src"] + "\" %}"""
+            
+for div in soup.find_all("link"):
+    if div:
+        if not div.get("href").startswith("http"):
+            div.attrs["href"] = "{% static \"" + div.attrs["href"] + "\" %}"""
 
+#print(soup.prettify())
 with open(infile, "w") as outfp:
     outfp.write(soup.prettify())
