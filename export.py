@@ -46,6 +46,7 @@ for ifs in soup.find_all(attrs={"dj-if": True}):
             del ifs.attrs["dj-if"]
             ifs.insert_after("{% endif %}")
 
+            
 # handle block
 for div in soup.find_all(attrs={"dj-block": True}):
     if div:
@@ -67,6 +68,12 @@ for div in soup.find_all("link"):
     if div:
         if not div.get("href").startswith("http"):
             div.attrs["href"] = "{% static \"" + div.attrs["href"] + "\" %}"""
+            
+for csrf in soup.find_all(attrs={"dj-csrf": True}):
+    if csrf:
+        csrf.insert(0, "{% csrf_token %}")
+        if "dj-csrf" in csrf.attrs:
+            del csrf.attrs["dj-csrf"]
 
 #print(soup.prettify())
 with open(infile, "w") as outfp:
