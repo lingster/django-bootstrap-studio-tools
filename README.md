@@ -25,7 +25,7 @@ Currently supports following attributes for django conversion:
 
 ```
 dj-for   => will create a for loop
-dj-refs  => will create ref to variable
+dj-ref   => will create ref to variable
 dj-if    => will create if block
 dj-block => will create a block
 ```
