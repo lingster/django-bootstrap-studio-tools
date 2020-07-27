@@ -68,6 +68,10 @@ for div in soup.find_all("link"):
     if div:
         if not div.get("href").startswith("http"):
             div.attrs["href"] = "{% static \"" + div.attrs["href"] + "\" %}"""
+
+for div in soup.find_all("img"):
+    if div:
+        div.attrs["src"] = "{% static \"" + div.attrs["src"] + "\" %}"""
             
 for csrf in soup.find_all(attrs={"dj-csrf": True}):
     if csrf:
@@ -77,4 +81,5 @@ for csrf in soup.find_all(attrs={"dj-csrf": True}):
 
 #print(soup.prettify())
 with open(infile, "w") as outfp:
+    outfp.write("{% load static %}")
     outfp.write(soup.prettify())
