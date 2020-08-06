@@ -14,7 +14,7 @@ echo "`which python3`" >> $logfile
 echo $cwd >> $logfile
 echo $1 >> $logfile
 pushd $1
-for f in $(find . -name *.html)
+for f in $(find . -name '*.html')
 do
     echo python3 $cwd/export.py $f >> $logfile 
     python3 $cwd/export.py $f 
