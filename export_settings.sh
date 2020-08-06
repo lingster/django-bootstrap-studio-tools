@@ -13,11 +13,9 @@ echo "run at `date`" >> $logfile
 echo "`which python3`" >> $logfile
 echo $cwd >> $logfile
 echo $1 >> $logfile
-pushd $1
+cd $1
 for f in $(find . -name *.html)
 do
     echo python3 $cwd/export.py $f >> $logfile 
     python3 $cwd/export.py $f 
 done
-popd
-
