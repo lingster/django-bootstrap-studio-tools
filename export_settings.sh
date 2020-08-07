@@ -3,7 +3,7 @@
 # this will read all html files and replace dj-* attributes with django code
 
 logfile="/tmp/bss_export.log"
-export_script=$(realpath lol.py)
+export_script=$(realpath export.py)
 
 cd $1
 
